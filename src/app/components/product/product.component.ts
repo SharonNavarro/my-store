@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
+  product = {
+    name: 'Product 1',
+    image: '../../../assets/toy.jpg',
+    price: 100
+  }
+
   constructor() { }
 
   ngOnInit(): void {
