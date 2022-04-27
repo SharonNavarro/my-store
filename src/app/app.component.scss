@@ -70,6 +70,7 @@
   width: 70%;
   padding: 20px;
   padding-bottom: 35px;
+  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.2);
 }
 
 .formContainer {
@@ -168,4 +169,15 @@
 
 .signFooter {
   font-size: 0.8rem;
+}
+
+.helper-text {
+  display: none;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.visible {
+  display: block;
 }

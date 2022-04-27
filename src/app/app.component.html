@@ -10,6 +10,9 @@
     </div>
   </nav>
 
+  <p><input type="text" [(ngModel)]="imgParent"></p>
+  <app-img [img]="imgParent"></app-img>
+
   <div class="signContainer">
     <!-- <div class="illustrationLeft"></div> -->
     <div class="formContainer">
@@ -18,20 +21,19 @@
       </div>
 
       <form (ngSubmit)="onRegister()" #myForm="ngForm" class="form">
-        <!-- <div class="input-group">
-          <label for="name">Name</label>
-          <input type="text" required name="name" id="name" [(ngModel)]="register.name" />
-          <p>Incorrect name</p>
-        </div> -->
 
         <div class="input-group">
           <input type="email" placeholder="  Email..." required name="email" id="email" #myEmail="ngModel" [(ngModel)]="register.email" autocomplete="off">
-          <!-- <p *ngIf="myEmail.invalid">Incorrect email</p> -->
+          <span class="helper-text" [class.visible]="(myForm.submitted || myForm.controls['email']?.touched) && myForm.controls['email'].invalid">
+            Email is missing
+          </span>
         </div>
 
         <div class="input-group">
           <input type="password" placeholder="  Password..." required name="password" id="password" #myPassword="ngModel" [(ngModel)]="register.password">
-          <!-- <p>Incorrect password</p> -->
+          <span class="helper-text" [class.visible]="(myForm.submitted || myForm.controls['password']?.touched) && myForm.controls['password'].invalid">
+            Password is missing
+          </span>
         </div>
 
         <div class="supportText">
