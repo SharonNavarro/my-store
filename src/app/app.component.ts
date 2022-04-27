@@ -21,4 +21,8 @@ export class AppComponent {
     console.log(this.register)
   }
 
+  onLoaded(img: string) {
+    console.log("log padre", img)
+  }
+
 }
