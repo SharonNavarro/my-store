@@ -11,9 +11,10 @@
   </nav>
 
   <p><input type="text" [(ngModel)]="imgParent"></p>
+  <button (click)="">Toogle Img</button>
   <app-img (loaded)="onLoaded($event)" [img]="imgParent"></app-img>
-
-  <app-product></app-product>
+  <h3></h3>
+  <app-product [product]="product" *ngFor="let product of products"></app-product>
 
   <div class="signContainer">
     <!-- <div class="illustrationLeft"></div> -->
@@ -57,9 +58,9 @@
       </div>
     </div>
 
-    <div class="illustrationRight">
+    <!-- <div class="illustrationRight">
       <img src="../assets/illusRigth.png" alt="Girl in a jacket">
-    </div>
+    </div> -->
 
   </div>
 
