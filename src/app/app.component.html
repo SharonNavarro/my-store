@@ -10,12 +10,12 @@
     </div>
   </nav>
 
-  <p><input type="text" [(ngModel)]="imgParent"></p>
+  <!-- <p><input type="text" [(ngModel)]="imgParent"></p>
   <p>{{ showImg }}</p>
   <button (click)="toggleImg()">Toogle Img</button>
-  <app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img>
-  <h3></h3>
-  <app-product [product]="product" *ngFor="let product of products"></app-product>
+  <app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img> -->
+
+  <app-products></app-products>
 
 <!-- START CONTAINER LOG -->
   <div class="signContainer">
