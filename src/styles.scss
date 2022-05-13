@@ -4,3 +4,11 @@ body {
   margin: 0;
   font-family: 'Raleway', sans-serif;
 }
+
+.products--grid {
+  app-img {
+    img {
+      border-radius: 10px;
+    }
+  }
+}
