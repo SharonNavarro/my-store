@@ -11,11 +11,13 @@
   </nav>
 
   <p><input type="text" [(ngModel)]="imgParent"></p>
-  <button (click)="">Toogle Img</button>
-  <app-img (loaded)="onLoaded($event)" [img]="imgParent"></app-img>
+  <p>{{ showImg }}</p>
+  <button (click)="toggleImg()">Toogle Img</button>
+  <app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img>
   <h3></h3>
   <app-product [product]="product" *ngFor="let product of products"></app-product>
 
+<!-- START CONTAINER LOG -->
   <div class="signContainer">
     <!-- <div class="illustrationLeft"></div> -->
     <div class="formContainer">
@@ -63,6 +65,8 @@
     </div> -->
 
   </div>
+
+  <!-- END CONTAINER LOG -->
 
   <footer class="signFooter">
     <p>AnyKriss Co. 2022   |   Privacy Policy</p>
