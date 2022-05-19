@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 //crear un observavble para que demas componentes se puedan subscribir apenas reciba un cambio
 // esto se puede utilizar en lugar de transmitir datos con input y output, ya que se
 //se evita pasar por todo el arbol de DOM para llegar al nodo que exactamente queremos.
-//en lugar de eso, se alamacena en un storage que va directamente al nodo que queremos y ya no lo repasa todo el DOM
+//en lugar de eso, se almacena en un storage que va directamente al nodo que queremos y ya no repasa todo el DOM
 
 @Injectable({
   providedIn: 'root'
