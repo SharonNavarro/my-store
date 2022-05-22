@@ -15,6 +15,8 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 import { HighlightDirective } from './directives/highlight.directive';
 
+import { SwiperModule } from 'swiper/angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import { HighlightDirective } from './directives/highlight.directive';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SwiperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
