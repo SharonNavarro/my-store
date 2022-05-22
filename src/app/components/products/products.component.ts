@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, createProductDTO } from '../../models/product.model'
+import { Product, createProductDTO, updateProductDTO } from '../../models/product.model'
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -78,11 +78,16 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  // onSwiper([swiper]) {
-  //   console.log(swiper);
-  // }
-  // onSlideChange() {
-  //   console.log('slide change');
-  // }
+  updateProduct() {
+    const changes: updateProductDTO = {
+      title: "Nuevo titulo",
+    }
+    const id = this.productChosen.id;
+    this.productsService.update(id, changes)
+    .subscribe(data => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products[productIndex] = data;
+    })
+  }
 
 }
