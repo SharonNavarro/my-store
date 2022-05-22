@@ -16,6 +16,17 @@ export class ProductsComponent implements OnInit {
   today = new Date();
   date = new Date(2021, 1, 21);
   showProductDetail = false;
+  productChosen: Product = {
+    id: "",
+    price: 0,
+    images: [],
+    title: "",
+    category: {
+      id: "",
+      name: ""
+    },
+    description: ""
+  }
 
   constructor(
     private storeService: StoreService,
@@ -32,32 +43,6 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  // products: Product[] = [
-  //   {
-  //     id: '1',
-  //     name: 'EL mejor juguete',
-  //     price: 565,
-  //     image: '../assets/toy.jpg'
-  //   },
-  //   {
-  //     id: '2',
-  //     name: 'Bicicleta casi nueva',
-  //     price: 356,
-  //     image: '../assets/bike.jpg'
-  //   },
-  //   {
-  //     id: '3',
-  //     name: 'Colleción de albumnes',
-  //     price: 34,
-  //     image: '../assets/album.jpg'
-  //   },
-  //   {
-  //     id: '4',
-  //     name: 'Mis libros',
-  //     price: 23,
-  //     image: '../assets/books.jpg'
-  //   },
-  // ];
   // https://picsum.photos/200
 
   onAddToShppingCart(product: Product) {
@@ -76,7 +61,16 @@ export class ProductsComponent implements OnInit {
     this.productsService.getProduct(id)
     .subscribe(data => {
       console.log("product", data)
+      this.toggleProductDetail()
+      this.productChosen = data;
     })
   }
+
+  // onSwiper([swiper]) {
+  //   console.log(swiper);
+  // }
+  // onSlideChange() {
+  //   console.log('slide change');
+  // }
 
 }
