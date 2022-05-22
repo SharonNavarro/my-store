@@ -8,6 +8,7 @@
     [product]="product"
     *ngFor="let product of products"
     (addedProduct)="onAddToShppingCart($event)"
+    (showProduct)="onShowProduct($event)"
   >
   </app-product>
 </div>
