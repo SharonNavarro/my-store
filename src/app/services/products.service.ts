@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { retry } from 'rxjs/operators';
 import { Product, createProductDTO, updateProductDTO } from './../models/product.model'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  private apiUrl = '/api/products';
+  // Hay un proxy de desarrollo para evitar problemas de CORDS
+  private apiUrl = `${environment.API_URL}/api/products`;
 
   constructor(
     private http: HttpClient
