@@ -10,7 +10,7 @@ import { User, CreateUsertDTO } from './../models/user.model'
 export class UsersService {
 
   // Hay un proxy de desarrollo para evitar problemas de CORDS
-  private apiUrl = `${environment.API_URL}/api/products`;
+  private apiUrl = `${environment.API_URL}/api/users`;
 
   constructor(
     private http: HttpClient

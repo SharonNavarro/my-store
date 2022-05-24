@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { User, CreateUsertDTO } from './../models/user.model'
+import { Auth } from './../models/auth.model-'
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,18 @@ export class AuthService {
   ) { }
 
   login(email: string, password: string) {
-    return this.http.post(`${this.apiUrl}/login`, {email, password});
-  };
+    return this.http.post<Auth>(`${this.apiUrl}/login`, {email, password});
+  }
 
-  profile(token: string) {
+  getProfile(token: string) {
     return this.http.get(`${this.apiUrl}/profile`);
   };
+
+  loginAndGet(email: string, password: string) {
+    return this.login(email, password)
+    .pipe(
+      switchMap(rta => this.getProfile(rta.access_token)),
+    )
+  }
 
 }
