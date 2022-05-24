@@ -29,6 +29,7 @@ export class ProductsComponent implements OnInit {
   };
   limit = 10;
   offset = 0;
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
     private storeService: StoreService,
@@ -40,30 +41,37 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsService.getProductsByPage(10, 0)
-    .subscribe(data => {
-      this.products = data;
-    })
+      .subscribe(data => {
+        this.products = data;
+      })
   }
 
   // https://picsum.photos/200
 
   onAddToShppingCart(product: Product) {
     this.storeService.addProduct(product);
-    this.total =  this.storeService.getTotal();
+    this.total = this.storeService.getTotal();
 
     console.log(this.myShoppingCart)
   }
 
   toggleProductDetail() {
-    this.showProductDetail =!this.showProductDetail;
+    this.showProductDetail = !this.showProductDetail;
   }
 
   onShowProduct(id: string) {
+    this.statusDetail = 'loading';
     this.productsService.getProduct(id)
-    .subscribe(data => {
-      this.toggleProductDetail()
-      this.productChosen = data;
-    })
+      .subscribe({
+        next: data => {
+          this.toggleProductDetail();
+          this.productChosen = data;
+          this.statusDetail = 'success';
+        },
+        error: error => {
+          this.statusDetail = 'error';
+        }
+      })
   }
 
   createNewProduct() {
@@ -75,9 +83,9 @@ export class ProductsComponent implements OnInit {
       categoryId: 2,
     }
     this.productsService.create(product)
-    .subscribe(data => {
-      this.products.unshift(data);
-    })
+      .subscribe(data => {
+        this.products.unshift(data);
+      })
   }
 
   updateProduct() {
@@ -86,28 +94,28 @@ export class ProductsComponent implements OnInit {
     }
     const id = this.productChosen.id;
     this.productsService.update(id, changes)
-    .subscribe(data => {
-      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
-      this.products[productIndex] = data;
-    })
+      .subscribe(data => {
+        const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+        this.products[productIndex] = data;
+      })
   }
 
   deleteProduct() {
     const id = this.productChosen.id;
     this.productsService.delete(id)
-    .subscribe(() => {
-      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
-      this.products.splice(productIndex, 1);
-      this.showProductDetail = false;
-    })
+      .subscribe(() => {
+        const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+        this.products.splice(productIndex, 1);
+        this.showProductDetail = false;
+      })
   }
 
   loadMore() {
     this.productsService.getAllProducts(this.limit, this.offset)
-    .subscribe(data => {
-      this.products = [...this.products, ...data];
-      this.offset += this.limit;
-    });
+      .subscribe(data => {
+        this.products = [...this.products, ...data];
+        this.offset += this.limit;
+      });
   }
 
 }
