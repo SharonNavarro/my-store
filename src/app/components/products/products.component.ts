@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product, createProductDTO, updateProductDTO } from '../../models/product.model'
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { switchMap, zip } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -116,6 +117,26 @@ export class ProductsComponent implements OnInit {
         this.products = [...this.products, ...data];
         this.offset += this.limit;
       });
+  }
+
+  //SwitchMap nos permite hacer lo mismo que un .then en una promesa y asi poder evitar el callbackHell
+  //Zip funciona como una promise.all, resuelve en conjunt promesas y en orden cronologico
+  readAndUpdate(id: string) {
+    this.productsService.getProduct(id)
+    .pipe(
+      switchMap((product) => this.productsService.update(product.id, {title: 'change'}))
+    )
+    .subscribe(data => {
+      console.log(data)
+    });
+    zip(
+      this.productsService.getProduct(id),
+      this.productsService.update(id, {title: 'change2'})
+    )
+    .subscribe(response => {
+      const read = response[0];
+      const update = response[1];
+    })
   }
 
 }

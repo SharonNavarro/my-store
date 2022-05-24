@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 import { Product, createProductDTO, updateProductDTO } from './../models/product.model'
 import { environment } from 'src/environments/environment';
-import { throwError } from 'rxjs';
+import { throwError, zip } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,8 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
+  //Map evalua cada uno de los valores que llegue en el observable y permite hacer una tranformacion
+  //El segundo map es antivo de JS
   getAllProducts(limit?: number, offset?: number) {
     let params = new HttpParams();
     if (limit && offset) {
@@ -25,7 +27,13 @@ export class ProductsService {
     }
     return this.http.get<Product[]>(this.apiUrl, { params })
     .pipe(
-      retry(4)
+      retry(3),
+      map(products => products.map(item => {
+        return {
+          ...item,
+          taxes: .10 * item.price
+        }
+      }))
     );
   }
 
@@ -51,6 +59,15 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.apiUrl}`, {
       params: { limit, offset }
     })
+    .pipe(
+      retry(3),
+      map(products => products.map(item => {
+        return {
+          ...item,
+          taxes: .10 * item.price
+        }
+      }))
+    );
   }
 
   // DATA TRANSFER OBJECT
@@ -69,4 +86,12 @@ export class ProductsService {
   delete(id: string) {
     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
   }
+
+  fetchReadAndUpdate(id: string, dto: updateProductDTO) {
+    return zip(
+      this.getProduct(id),
+      this.update(id, dto)
+    );
+  };
+
 }
