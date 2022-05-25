@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from 'src/app/services/store.service';
+
+import { StoreService } from '../../services/store.service'
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -10,19 +14,51 @@ export class NavComponent implements OnInit {
 
   activeMenu = false;
   counter = 0;
+  token = '';
+  profile: User | null = null;
 
   constructor(
-    private storeService: StoreService
+    private storeService: StoreService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.storeService.myCart$.subscribe(products => {
       this.counter = products.length;
-    })
+    });
   }
 
   toggleMenu() {
     this.activeMenu = !this.activeMenu;
   }
+
+  // login() {
+  //   this.authService.loginAndGet('anyo@mail.com', '12345')
+  //   .subscribe(user => {
+  //     this.profile = user;
+  //     console.log(user)
+  //     this.token = '---';
+  //   });
+  // }
+
+  login() {
+    this.authService.login('anyo@mail.com', '12345')
+      .pipe(
+        switchMap((token) => {
+          this.token = token.access_token;
+          return this.authService.getProfile(token.access_token);
+        })
+      )
+      .subscribe(user => {
+        this.profile = user;
+      });
+  };
+
+  // getProfile() {
+  //   this.authService.getProfile(this.token)
+  //   .subscribe(user => {
+  //     this.profile = user;
+  //   });
+  // }
 
 }

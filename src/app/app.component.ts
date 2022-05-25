@@ -23,19 +23,21 @@ export class AppComponent {
     name: '',
     email: '',
     password: '',
-  }
+  };
+
+  token!: string;
 
   onRegister() {
     console.log(this.register)
-  }
+  };
 
   onLoaded(img: string) {
     console.log("log padre", img)
-  }
+  };
 
    toggleImg() {
     this.showImg = !this.showImg;
-   }
+   };
 
    createUser() {
      this.usersService.create({
@@ -47,12 +49,5 @@ export class AppComponent {
        console.log(rta);
      });
    };
-
-   login() {
-    this.authService.login('anyo@mail.com', '12345')
-    .subscribe( rta => {
-      console.log(rta.access_token);
-    });
-  };
 
 }

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+import { User } from '../models/user.model';
 import { Auth } from './../models/auth.model-'
 
 @Injectable({
@@ -22,7 +23,15 @@ export class AuthService {
   }
 
   getProfile(token: string) {
-    return this.http.get(`${this.apiUrl}/profile`);
+    // const hearders = new HttpHeaders();
+    // hearders.set('Authorization', `Bearer ${token}`);
+    return this.http.get<User>(`${this.apiUrl}/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // 'Content-type': 'application/json'
+        // hearders
+      }
+    });
   };
 
   loginAndGet(email: string, password: string) {
