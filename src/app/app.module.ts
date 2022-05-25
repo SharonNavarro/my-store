@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -14,6 +14,8 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 import { HighlightDirective } from './directives/highlight.directive';
+
+import { TimeInterceptor } from './interceptors/time.interceptor';
 
 import { SwiperModule } from 'swiper/angular';
 
@@ -34,7 +36,13 @@ import { SwiperModule } from 'swiper/angular';
     HttpClientModule,
     SwiperModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi:true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// multi: true => permite “construir” multiples dependencias para un mismo token.
+//Es una forma de extender un token en particular para un objeto (provider).
+//Angular utiliza esta forma para hacer hooks conectables.
