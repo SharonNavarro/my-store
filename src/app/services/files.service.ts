@@ -2,11 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from 'file-saver';
 import { tap, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+interface File {
+  originalname: string;
+  filename: string;
+  location: string;
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilesService {
+
+  private apiUrl = `${environment.API_URL}/api/files`;
 
   constructor(
     private http: HttpClient
@@ -23,4 +32,15 @@ export class FilesService {
     );
   };
 
-}
+  //No se envia como JSON, sino como FormData que es el objeto nativo de HTML para enviar este tipo de campos.
+  //Se habla con el backend para saber que tipo de Content-type necesita, y si es necesario tambien.
+  uploadFile(file: Blob) {
+    const dto = new FormData();
+    dto.append('file', file);
+    return this.http.post<File>(`${this.apiUrl}/upload`, dto, {
+      // headers: {
+      //   'Content-type': "multipart/form-data"
+      // }
+    })
+  }
+};
