@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product, createProductDTO, updateProductDTO } from '../../models/product.model'
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -13,7 +13,6 @@ export class ProductsComponent {
 
   myShoppingCart: Product[] = [];
   total = 0;
-  @Input() products: Product[] = [];
   today = new Date();
   date = new Date(2021, 1, 21);
   showProductDetail = false;
@@ -29,6 +28,9 @@ export class ProductsComponent {
     description: ""
   };
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
+
+  @Output() onLoadMore: EventEmitter<string> = new EventEmitter<string>();
+  @Input() products: Product[] = [];
 
   constructor(
     private storeService: StoreService,
@@ -109,6 +111,9 @@ export class ProductsComponent {
   //       this.offset += this.limit;
   //     });
   // }
+  loadMore() {
+    this.onLoadMore.emit();
+  };
 
   //SwitchMap nos permite hacer lo mismo que un .then en una promesa y asi poder evitar el callbackHell
   //Zip funciona como una promise.all, resuelve en conjunt promesas y en orden cronologico
