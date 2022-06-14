@@ -12,9 +12,9 @@ import { FilesService } from './services/files.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  imgParent = "";
-  showImg = true;
-  imgRta = "";
+  imgParent: string = "";
+  showImg: boolean = true;
+  imgRta: string = "";
 
   constructor(
     private authService: AuthService,
