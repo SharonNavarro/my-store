@@ -9,6 +9,10 @@ export class HighlightDirective {
     this.element.nativeElement.style.backgroundColor = "red";
   }
 
+  @HostListener("mouseenter") onMouseLeave() {
+    this.element.nativeElement.style.backgroundColor = "";
+  }
+
   constructor(
     private element: ElementRef
   ) {

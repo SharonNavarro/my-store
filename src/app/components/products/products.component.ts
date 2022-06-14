@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product, createProductDTO, updateProductDTO } from '../../models/product.model'
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -9,11 +9,11 @@ import { switchMap, zip } from 'rxjs';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
 
   myShoppingCart: Product[] = [];
   total = 0;
-  products: Product[] = [];
+  @Input() products: Product[] = [];
   today = new Date();
   date = new Date(2021, 1, 21);
   showProductDetail = false;
@@ -28,8 +28,6 @@ export class ProductsComponent implements OnInit {
     },
     description: ""
   };
-  limit = 10;
-  offset = 0;
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
@@ -38,13 +36,6 @@ export class ProductsComponent implements OnInit {
   ) {
     //lo ponemos aqui ya que no es asincrono
     this.myShoppingCart = this.storeService.getShoppingCart();
-  }
-
-  ngOnInit(): void {
-    this.productsService.getProductsByPage(10, 0)
-      .subscribe(data => {
-        this.products = data;
-      })
   }
 
   // https://picsum.photos/200
@@ -111,13 +102,13 @@ export class ProductsComponent implements OnInit {
       })
   }
 
-  loadMore() {
-    this.productsService.getAllProducts(this.limit, this.offset)
-      .subscribe(data => {
-        this.products = [...this.products, ...data];
-        this.offset += this.limit;
-      });
-  }
+  // loadMore() {
+  //   this.productsService.getAll(this.limit, this.offset)
+  //     .subscribe(data => {
+  //       this.products = [...this.products, ...data];
+  //       this.offset += this.limit;
+  //     });
+  // }
 
   //SwitchMap nos permite hacer lo mismo que un .then en una promesa y asi poder evitar el callbackHell
   //Zip funciona como una promise.all, resuelve en conjunt promesas y en orden cronologico

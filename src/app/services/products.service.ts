@@ -38,7 +38,7 @@ export class ProductsService {
         }
       }))
     );
-  }
+  };
 
   getProduct(id: string) {
     return this.http.get<Product>(`${this.apiUrl}/${id}`)
@@ -56,28 +56,30 @@ export class ProductsService {
         return throwError(() => ('Ups algo salió mal'));
       })
     );
-  }
+  };
 
-  getProductsByPage(limit: number, offset: number) {
-    return this.http.get<Product[]>(`${this.apiUrl}`, {
-      params: { limit, offset },
-      context: checkTime()
-    })
+  getAll(limit?: number, offset?: number) {
+    let params = new HttpParams();
+    if (limit && offset != null) {
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+    return this.http.get<Product[]>(this.apiUrl, { params, context: checkTime() })
     .pipe(
       retry(3),
       map(products => products.map(item => {
         return {
           ...item,
-          taxes: .10 * item.price
+          taxes: .19 * item.price
         }
       }))
     );
-  }
+  };
 
   // DATA TRANSFER OBJECT
   create(dto: createProductDTO) {
     return this.http.post<Product>(this.apiUrl, dto);
-  }
+  };
 
   // PUT: se deberia enviar toda la informacion del producto asi se haya cambiado solo el titulo.
   // PATCH: Hacer la edicion de un atributo en particular. Si modificamos solo el titulo solo enviamos el titulo.
@@ -85,11 +87,11 @@ export class ProductsService {
 
   update(id: string, dto: updateProductDTO) {
     return this.http.put<Product>(`${this.apiUrl}/${id}`, dto);
-  }
+  };
 
   delete(id: string) {
     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
-  }
+  };
 
   fetchReadAndUpdate(id: string, dto: updateProductDTO) {
     return zip(

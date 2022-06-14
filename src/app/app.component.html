@@ -15,7 +15,7 @@
   <button (click)="toggleImg()">Toogle Img</button>
   <app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img> -->
 <app-nav></app-nav>
-<button (click)="createUser()">Create Uuser</button>
+<!-- <button (click)="createUser()">Create User</button>
 <a href="./../assets/files/texto.txt" download>Descargar</a>
 <hr />
 <p>
@@ -24,8 +24,9 @@
 <p>
   <input type="file" (change)="onUpload($event)">
   <img *ngIf="imgRta" [src]="imgRta">
-</p>
-<app-products></app-products>
+</p> -->
+<router-outlet></router-outlet>
+<!-- <app-products></app-products> -->
 
 <!-- START CONTAINER LOG -->
 <!-- <div class="signContainer"> -->
