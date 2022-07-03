@@ -14,7 +14,7 @@ import { checkTime } from '../interceptors/time.interceptor';
 export class ProductsService {
 
   // Hay un proxy de desarrollo para evitar problemas de CORDS
-  private apiUrl = `${environment.API_URL}/api/products`;
+  private apiUrl = `${environment.API_URL}/api`;
 
   constructor(
     private http: HttpClient
@@ -41,7 +41,7 @@ export class ProductsService {
   };
 
   getProduct(id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/${id}`)
+    return this.http.get<Product>(`${this.apiUrl}/products/${id}`)
     .pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === HttpStatusCode.Conflict) {
@@ -58,13 +58,22 @@ export class ProductsService {
     );
   };
 
+  getByCategory (categoryId: string, limit?: number, offset?:number) {
+    let params = new HttpParams();
+    if (limit && offset != null) {
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+    return this.http.get<Product[]>(`${this.apiUrl}/categories/${categoryId}/products`, { params })
+  }
+
   getAll(limit?: number, offset?: number) {
     let params = new HttpParams();
     if (limit && offset != null) {
       params = params.set('limit', limit);
       params = params.set('offset', offset);
     }
-    return this.http.get<Product[]>(this.apiUrl, { params, context: checkTime() })
+    return this.http.get<Product[]>(`${this.apiUrl}/products`, { params, context: checkTime() })
     .pipe(
       retry(3),
       map(products => products.map(item => {
@@ -78,7 +87,7 @@ export class ProductsService {
 
   // DATA TRANSFER OBJECT
   create(dto: createProductDTO) {
-    return this.http.post<Product>(this.apiUrl, dto);
+    return this.http.post<Product>(`${this.apiUrl}`, dto);
   };
 
   // PUT: se deberia enviar toda la informacion del producto asi se haya cambiado solo el titulo.
@@ -86,11 +95,11 @@ export class ProductsService {
   // La funcionalidad de PUT y PATCH dependera del backend
 
   update(id: string, dto: updateProductDTO) {
-    return this.http.put<Product>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<Product>(`${this.apiUrl}/products/${id}`, dto);
   };
 
   delete(id: string) {
-    return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/products/${id}`);
   };
 
   fetchReadAndUpdate(id: string, dto: updateProductDTO) {

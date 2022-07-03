@@ -104,13 +104,6 @@ export class ProductsComponent {
       })
   }
 
-  // loadMore() {
-  //   this.productsService.getAll(this.limit, this.offset)
-  //     .subscribe(data => {
-  //       this.products = [...this.products, ...data];
-  //       this.offset += this.limit;
-  //     });
-  // }
   loadMore() {
     this.onLoadMore.emit();
   };
