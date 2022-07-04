@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators'
 
 import { ProductsService } from 'src/app/services/products.service';
 
-import { Product } from '../../models/product.model'
+import { Product } from '../../../models/product.model'
 
 @Component({
   selector: 'app-product-detail',
