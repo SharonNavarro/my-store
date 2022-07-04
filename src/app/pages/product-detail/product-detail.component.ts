@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { switchMap } from 'rxjs/operators'
@@ -20,6 +20,7 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productsService: ProductsService,
     private location: Location
   ) { }
@@ -42,7 +43,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   goToBack() {
-    this.location.back();
+    // this.location.back();
+    this.router.navigate(["/home"])
   }
 
 }
