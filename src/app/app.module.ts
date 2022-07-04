@@ -31,6 +31,7 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AppRoutingModule } from './app-routing.module';
     LoginComponent,
     RegisterComponent,
     RecoveryComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
