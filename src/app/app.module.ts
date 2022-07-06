@@ -5,55 +5,18 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-
-import { ImgComponent } from './website/components/img/img.component';
-import { ProductComponent } from './website/components/product/product.component';
-import { ProductsComponent } from './website/components/products/products.component';
-import { NavComponent } from './website/components/nav/nav.component';
-
-import { ReversePipe } from './website/pipes/reverse.pipe';
-import { TimeAgoPipe } from './website/pipes/time-ago.pipe';
-
-import { HighlightDirective } from './website/directives/highlight.directive';
-
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { SwiperModule } from 'swiper/angular';
 
-import { HomeComponent } from './website/pages/home/home.component';
-import { NotFoundComponent } from './website/pages/not-found/not-found.component';
-import { CategoryComponent } from './website/pages/category/category.component';
-import { MyCartComponent } from './website/pages/my-cart/my-cart.component';
-import { LoginComponent } from './website/pages/login/login.component';
-import { RegisterComponent } from './website/pages/register/register.component';
-import { RecoveryComponent } from './website/pages/recovery/recovery.component';
-import { ProfileComponent } from './website/pages/profile/profile.component';
-
 import { AppRoutingModule } from './app-routing.module';
-import { ProductDetailComponent } from './website/pages/product-detail/product-detail.component';
-import { LayoutComponent } from './website/components/layout/layout.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ImgComponent,
-    ProductComponent,
-    ProductsComponent,
-    NavComponent,
-    ReversePipe,
-    TimeAgoPipe,
-    HighlightDirective,
-    HomeComponent,
-    NotFoundComponent,
-    CategoryComponent,
-    MyCartComponent,
-    LoginComponent,
-    RegisterComponent,
-    RecoveryComponent,
-    ProfileComponent,
-    ProductDetailComponent,
-    LayoutComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
