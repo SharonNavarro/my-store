@@ -102,5 +102,7 @@
       }
     }
   },
-  "defaultProject": "my-store"
+  "cli": {
+    "analytics": false
+  }
 }
