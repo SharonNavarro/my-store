@@ -13,6 +13,8 @@ import { SwiperModule } from 'swiper/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 
+// import { QuicklinkModule} from 'ngx-quicklink';
+
 @NgModule({
   declarations: [
     AppComponent,

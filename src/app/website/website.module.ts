@@ -17,6 +17,8 @@ import { SwiperModule } from 'swiper/angular';
 import { SharedModule } from '../shared/shared.module';
 import { CategoryModule } from './pages/category/category.module';
 
+// import { QuicklinkModule} from 'ngx-quicklink';
+
 @NgModule({
   declarations: [
     LayoutComponent,
