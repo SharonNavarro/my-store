@@ -13,7 +13,7 @@ import { SwiperModule } from 'swiper/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 
-// import { QuicklinkModule} from 'ngx-quicklink';
+import { QuicklinkModule} from 'ngx-quicklink';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HttpClientModule,
     SwiperModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    QuicklinkModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi:true },

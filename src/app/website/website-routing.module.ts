@@ -8,7 +8,6 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { RegisterComponent } from './pages/register/register.component';
-
 const routes: Routes = [
   {
     path: '',
