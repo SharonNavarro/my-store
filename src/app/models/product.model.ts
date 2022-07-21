@@ -17,7 +17,7 @@ export interface createProductDTO extends Omit<Product, "id" | "category"> {
   categoryId: number;
 }
 
-//PARTIAL: colaca el signo de pregunta en todos los atributos, asi hara
+//PARTIAL: coloca el signo de pregunta en todos los atributos, asi hara
 // que los atributos puedan ser opcionales
 
 export interface updateProductDTO extends Partial<createProductDTO>{
